@@ -28,6 +28,28 @@ const createPets = async (req, res) =>{
     }
 }
 
+const getPets = async (req, res) =>{
+    try {
+        console.log(req.query.status);
+        const result = await sequelize.query(`SELECT * FROM pets 
+        `, 
+        {type: sequelize.QueryTypes.SELECT})
+        res.status(200).json({result})
+    } catch (error) {
+        if (error.name) {
+            res.status(404).json({
+                error,
+                message: 'error en la búsqueda'
+            })
+        } else {
+            res.status(500).json({
+                error,
+                message : 'Error inesperado'
+            })
+        }
+    } 
+}
+
 const getPetsByStatus = async (req, res) =>{
     try {
         console.log(req.query.status);
@@ -154,9 +176,76 @@ const updatePetsById = async (req, res) =>{
     }
 }
 
+const getCategory = async (req, res) =>{
+    try {
+        const result = await sequelize.query(`SELECT * FROM category 
+        `, 
+        {type: sequelize.QueryTypes.SELECT})
+        res.status(200).json({result})
+    } catch (error) {
+        if (error.name) {
+            res.status(404).json({
+                error,
+                message: 'error en la búsqueda'
+            })
+        } else {
+            res.status(500).json({
+                error,
+                message : 'Error inesperado'
+            })
+        }
+    } 
+}
+
+const getTags = async (req, res) =>{
+    try {
+        const result = await sequelize.query(`SELECT * FROM tags 
+        `, 
+        {type: sequelize.QueryTypes.SELECT})
+        res.status(200).json({result})
+    } catch (error) {
+        if (error.name) {
+            res.status(404).json({
+                error,
+                message: 'error en la búsqueda'
+            })
+        } else {
+            res.status(500).json({
+                error,
+                message : 'Error inesperado'
+            })
+        }
+    } 
+}
+
+const getStatus = async (req, res) =>{
+    try {
+        const result = await sequelize.query(`SELECT * FROM status 
+        `, 
+        {type: sequelize.QueryTypes.SELECT})
+        res.status(200).json({result})
+    } catch (error) {
+        if (error.name) {
+            res.status(404).json({
+                error,
+                message: 'error en la búsqueda'
+            })
+        } else {
+            res.status(500).json({
+                error,
+                message : 'Error inesperado'
+            })
+        }
+    } 
+}
+
 exports.createPets = createPets
+exports.getPets = getPets
 exports.getPetsByStatus = getPetsByStatus
 exports.getPetsId = getPetsId
 exports.updatePets = updatePets
 exports.deletePetsById = deletePetsById
 exports.updatePetsById = updatePetsById
+exports.getCategory = getCategory
+exports.getTags = getTags
+exports.getStatus= getStatus
